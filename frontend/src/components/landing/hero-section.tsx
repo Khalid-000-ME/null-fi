@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
+import Image from "next/image";
 import { AsciiSphere } from "./ascii-sphere";
 import { AsciiWave } from "./ascii-wave";
 import { AsciiTorus } from "./ascii-torus"; // Added import for AsciiTorus
@@ -32,7 +33,15 @@ export function HeroSection() {
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           }`}
         >
-          
+          <div className="relative group">
+            <Image 
+              src="/logo.png" 
+              alt="null402 Hero Logo" 
+              width={100} 
+              height={100} 
+              className="rounded-2xl shadow-xl shadow-primary/20 transition-transform duration-500 group-hover:scale-110" 
+            />
+          </div>
         </div>
         
         {/* Headline */}

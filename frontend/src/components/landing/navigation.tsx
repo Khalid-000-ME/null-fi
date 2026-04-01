@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
@@ -49,13 +50,13 @@ export function Navigation() {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="relative w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20" />
-              <span className="font-mono text-primary font-bold text-lg relative z-10">
-                0
-              </span>
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-primary/10" />
-            </div>
+            <Image 
+              src="/logo.png" 
+              alt="null402 Logo" 
+              width={40} 
+              height={40} 
+              className="rounded-xl transition-transform group-hover:scale-105"
+            />
             <span className="text-xl font-bold tracking-tight">null402</span>
           </Link>
 
