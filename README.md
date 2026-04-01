@@ -1,8 +1,10 @@
 # null402
 
-**Agentic x402 private lending protocol on Ethereum. Powered by [Zama fhEVM](https://docs.zama.ai/fhevm).**
+**The first agentic confidential lending protocol built on fhEVM.**
 
-> Your collateral. Your debt. Your health factor. **All null to everyone else.**
+> **Confidentiality by design. Solvency by math.**
+> 
+> Your position is not hidden. It is null.
 
 ---
 
@@ -24,30 +26,34 @@ The result is an encrypted boolean. **Only that boolean outcome** is ever decryp
 
 ---
 
-## Agentic FHE Sequence Diagram
-
-```mermaid
-sequenceDiagram
-    participant User
-    participant null402 Agent
-    participant FHE Contract (NullPool)
-    participant Zama Gateway
-    
-    User->>null402 Agent: "Borrow 100 nUSDC against my collateral"
-    null402 Agent->>null402 Agent: Parse intent, determine action="borrow"
-    null402 Agent->>User: Request transaction signature for Borrow FHE Payload
-    User->>FHE Contract (NullPool): Send signed tx (Borrow 100)
-    
-    FHE Contract (NullPool)->>FHE Contract (NullPool): FHE.select() bounded borrow & checks
-    FHE Contract (NullPool)->>User: Mint nDEBT (ConfidentialERC20)
-    
-    User->>null402 Agent: "What's my account health?"
-    null402 Agent->>FHE Contract (NullPool): Request encrypted `ebool` (isHealthy)
-    FHE Contract (NullPool)->>Zama Gateway: Request decryption via callback
-    Zama Gateway-->>FHE Contract (NullPool): Decrypt response (true/false)
-    FHE Contract (NullPool)-->>null402 Agent: Return health status
-    null402 Agent->>User: "Your encrypted position remains healthy."
-```
+  ## x402 Architecture: Web3 Developer Perspective
+  
+  ```mermaid
+  sequenceDiagram
+      participant User Wallet
+      participant UI (Viem/Wagmi)
+      participant null402 Agent (LLM solver)
+      participant FHE Contract (NullPool)
+      participant Token (nUSDC/nETH)
+      participant Zama Gateway
+      
+      User Wallet->>null402 Agent: Intent: "Borrow 100 nUSDC against my nETH"
+      null402 Agent->>UI (Viem/Wagmi): Parse intent into structured FHE payload (amount: 100)
+      UI (Viem/Wagmi)->>User Wallet: Request EIP-712 Signature for Zama FHE proof
+      User Wallet->>FHE Contract (NullPool): Submit signed tx: `borrow(inEuint128, proof)`
+      
+      FHE Contract (NullPool)->>FHE Contract (NullPool): FHE.select() bound check vs Oracle LTV
+      FHE Contract (NullPool)->>Token (nUSDC): `mint(user, encryptedDebtAmount)`
+      
+      User Wallet->>null402 Agent: Intent: "What's my account health?"
+      null402 Agent->>UI (Viem/Wagmi): Trigger health retrieval workflow
+      UI (Viem/Wagmi)->>FHE Contract (NullPool): Call `requestHealthCheck(user)`
+      FHE Contract (NullPool)->>Zama Gateway: Emit `DecryptionRequest` (ebool isHealthy)
+      Zama Gateway-->>FHE Contract (NullPool): Callback `fulfillRequest(true/false)`
+      FHE Contract (NullPool)-->>UI (Viem/Wagmi): Store plaintext health state
+      UI (Viem/Wagmi)-->>null402 Agent: State=true
+      null402 Agent->>User Wallet: "Your position is entirely safe from liquidation."
+  ```
 
 ---
 
@@ -102,11 +108,11 @@ npm run deploy:sepolia
 ### `frontend/.env.local`
 
 ```
-NEXT_PUBLIC_NULL_POOL_ADDRESS=0x...
-NEXT_PUBLIC_NULL_ORACLE_ADDRESS=0x...
-NEXT_PUBLIC_NULL_LIQUIDATOR_ADDRESS=0x...
-NEXT_PUBLIC_NULL_TOKEN_ADDRESS=0x...
-NEXT_PUBLIC_COLLATERAL_TOKEN_ADDRESS=0x...
+NEXT_PUBLIC_NULL_POOL_ADDRESS=0x1b832D5395A41446b508632466cf32c6C07D63c7
+NEXT_PUBLIC_NULL_ORACLE_ADDRESS=0x09F05577fE6C4790a651A510D0aCC0F51eeEA644
+NEXT_PUBLIC_NULL_LIQUIDATOR_ADDRESS=0xE4C53FEEFd918c78fa11e8C5f51c7A85Db1737fc
+NEXT_PUBLIC_NULL_TOKEN_ADDRESS=0xd183f760E74Ebc5D84dc9A09e2e79C378Aab3BDC
+NEXT_PUBLIC_COLLATERAL_TOKEN_ADDRESS=0x6945a84E678451a289cAdBEb998FDb0c4c2d23C3
 NEXT_PUBLIC_RPC_URL=https://rpc.sepolia.org
 NEXT_PUBLIC_FHEVM_GATEWAY_URL=https://gateway.sepolia.zama.ai
 GEMINI_API_KEY=AIza...
@@ -160,3 +166,5 @@ Permissionless trigger. Calls `requestHealthCheck` on pool. Liquidation bots gai
 Built for **PL Genesis: Frontiers of Collaboration** — Track: Privacy & Encryption.
 
 *"Position is not hidden. It is null."*
+
+

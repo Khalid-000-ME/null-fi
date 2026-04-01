@@ -11,17 +11,17 @@ import { FHE, euint64 } from "@fhevm/solidity/lib/FHE.sol";
  * Balance is encrypted — only the holder knows their debt amount.
  *
  * Standard DeFi protocols have public debt tokens — anyone can check
- * your debt balance on Etherscan. nDEBT balances are encrypted.
+ * your debt balance on Etherscan. nUSDC balances are encrypted.
  * Your creditor (NullPool) and you are the only ACL-permitted readers.
  */
-contract NullToken is ZamaEthereumConfig {
+contract nUSDC is ZamaEthereumConfig {
 
     address public pool;
 
     mapping(address => euint64) public encBalances;
 
-    string public name = "NullFi Debt Token";
-    string public symbol = "nDEBT";
+    string public name = "null402 USDC Debt Token";
+    string public symbol = "nUSDC";
 
     constructor() {}
 
@@ -31,7 +31,7 @@ contract NullToken is ZamaEthereumConfig {
     }
 
     modifier onlyPool() {
-        require(msg.sender == pool, "NullToken: only pool");
+        require(msg.sender == pool, "nUSDC: only pool");
         _;
     }
 

@@ -106,7 +106,7 @@ export const NULL_LIQUIDATOR_ABI = [
   },
 ] as const;
 
-// ─── MockConfidentialERC20 ABI ────────────────────────────────────────────────
+// ─── nETH ABI ────────────────────────────────────────────────
 export const MOCK_ERC20_ABI = [
   {
     name: "wrap",

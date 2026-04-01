@@ -15,16 +15,16 @@ async function main() {
 
   await sleep(2000); // Rate limit protection
 
-  // --- NullToken ---
-  const NullToken = await ethers.getContractFactory("NullToken");
-  const nullToken = await NullToken.deploy();
+  // --- nUSDC ---
+  const nUSDC = await ethers.getContractFactory("nUSDC");
+  const nullToken = await nUSDC.deploy();
   await nullToken.waitForDeployment();
-  console.log("NullToken deployed:", await nullToken.getAddress());
+  console.log("nUSDC deployed:", await nullToken.getAddress());
 
   await sleep(2000);
 
   // --- Collateral Token (nullETH — ConfidentialERC20) ---
-  const MockERC20 = await ethers.getContractFactory("MockConfidentialERC20");
+  const MockERC20 = await ethers.getContractFactory("nETH");
   const nullETH = await MockERC20.deploy("NullFi ETH", "nullETH");
   await nullETH.waitForDeployment();
   console.log("nullETH deployed:", await nullETH.getAddress());
@@ -43,9 +43,9 @@ async function main() {
 
   await sleep(2000);
 
-  // --- Link NullToken to Pool ---
+  // --- Link nUSDC to Pool ---
   await nullToken.setPool(await pool.getAddress());
-  console.log("NullToken pool set");
+  console.log("nUSDC pool set");
 
   await sleep(2000);
 

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useWallet } from "@/lib/wallet";
 
@@ -16,7 +17,8 @@ export default function Navbar() {
 
   return (
     <nav className="navbar">
-      <Link href="/" className="navbar-logo">
+      <Link href="/" className="navbar-logo" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <Image src="/logo.png" alt="null402" width={36} height={36} className="rounded-xl" />
         NULL402
       </Link>
 

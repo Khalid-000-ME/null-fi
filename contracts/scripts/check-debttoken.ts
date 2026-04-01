@@ -21,13 +21,13 @@ async function main() {
     console.log("✅ DebtToken contract exists");
     
     // Try to get the contract info
-    const NullToken = await ethers.getContractFactory("NullToken");
+    const nUSDC = await ethers.getContractFactory("nUSDC");
     try {
-      const token = NullToken.attach(debtTokenAddress);
+      const token = nUSDC.attach(debtTokenAddress);
       const name = await token.name();
       console.log("Token name:", name);
     } catch (err) {
-      console.log("Could not call name() - might not be NullToken");
+      console.log("Could not call name() - might not be nUSDC");
     }
   }
 }

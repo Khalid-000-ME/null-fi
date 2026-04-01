@@ -5,7 +5,7 @@ import { ZamaEthereumConfig } from "@fhevm/solidity/config/ZamaConfig.sol";
 import { FHE, euint64, ebool, externalEuint64 } from "@fhevm/solidity/lib/FHE.sol";
 import { IConfidentialERC20 } from "./interfaces/IConfidentialERC20.sol";
 import { NullOracle } from "./NullOracle.sol";
-import { NullToken } from "./NullToken.sol";
+import { nUSDC } from "./nUSDC.sol";
 
 contract NullPool is ZamaEthereumConfig {
     // ─── Constants ───────────────────────────────────────────────────────
@@ -16,7 +16,7 @@ contract NullPool is ZamaEthereumConfig {
     // ─── State ───────────────────────────────────────────────────────────
 
     address public collateralToken;   // ConfidentialERC20 accepted as collateral
-    NullToken public debtToken;       // encrypted debt token minted on borrow
+    nUSDC public debtToken;       // encrypted debt token minted on borrow
     NullOracle public oracle;
 
     struct Position {
@@ -49,7 +49,7 @@ contract NullPool is ZamaEthereumConfig {
         address _oracle
     ) {
         collateralToken = _collateralToken;
-        debtToken = NullToken(_debtToken);
+        debtToken = nUSDC(_debtToken);
         oracle = NullOracle(_oracle);
     }
 

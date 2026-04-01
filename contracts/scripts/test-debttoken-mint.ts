@@ -12,8 +12,8 @@ async function main() {
   console.log("DebtToken address:", debtTokenAddress);
   
   // Check if we can call mint on debtToken directly
-  const NullToken = await ethers.getContractFactory("NullToken");
-  const debtToken = NullToken.attach(debtTokenAddress);
+  const nUSDC = await ethers.getContractFactory("nUSDC");
+  const debtToken = nUSDC.attach(debtTokenAddress);
   
   try {
     // Try to get token info

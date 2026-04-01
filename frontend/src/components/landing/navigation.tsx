@@ -8,7 +8,7 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useWallet } from "@/lib/wallet";
 
 const landingLinks = [
-  { name: "null402 Chat", href: "/chat" },
+  { name: "null402 Agent", href: "/chat" },
   { name: "Borrow", href: "/borrow" },
   { name: "Dashboard", href: "/dashboard" },
 ];

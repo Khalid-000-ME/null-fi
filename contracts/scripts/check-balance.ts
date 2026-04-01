@@ -19,8 +19,8 @@ async function main() {
     
     // Let's check the token contract balance instead
     const tokenAddress = "0xb33E030948F4269F7835374Cc1D64e841CCD85D7";
-    const MockConfidentialERC20 = await ethers.getContractFactory("MockConfidentialERC20");
-    const token = MockConfidentialERC20.attach(tokenAddress);
+    const nETH = await ethers.getContractFactory("nETH");
+    const token = nETH.attach(tokenAddress);
     
     const balance = await token.balanceOf(deployer.address);
     console.log("Token balance (encrypted):", balance);

@@ -4,7 +4,7 @@ pragma solidity ^0.8.24;
 import { ZamaEthereumConfig } from "@fhevm/solidity/config/ZamaConfig.sol";
 import { FHE, euint64, ebool, externalEuint64 } from "@fhevm/solidity/lib/FHE.sol";
 
-contract MockConfidentialERC20 is ZamaEthereumConfig {
+contract nETH is ZamaEthereumConfig {
     string public name;
     string public symbol;
 

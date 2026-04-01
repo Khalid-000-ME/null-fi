@@ -8,8 +8,8 @@ async function main() {
   const userAddress = "0x1111d87736c9C90Bb9eAE83297BE83ae990699cE"; // Your wallet address
 
   // Attach to the nullETH contract
-  const MockConfidentialERC20 = await ethers.getContractFactory("MockConfidentialERC20");
-  const nullETH = MockConfidentialERC20.attach(nullETHAddress);
+  const nETH = await ethers.getContractFactory("nETH");
+  const nullETH = nETH.attach(nullETHAddress);
 
   // Mint 10 nullETH to the user using mintPlaintext
   // The contract stores amounts as uint64 with 18-decimal wei representation
